@@ -3,13 +3,16 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nginx-ingress-lb
+  namespace: kube-system
   annotations:
     service.beta.kubernetes.io/external-traffic: OnlyLocal
+    service.beta.kubernetes.io/alicloud-loadbalancer-ProtocolPort: "http:80,http:443"
+    service.beta.kubernetes.io/alicloud-loadbalancer-HealthCheckFlag: off
+    service.beta.kubernetes.io/alicloud-loadbalancer-Bandwidth: 60
   labels:
     app: nginx-ingress-lb
 spec:
   type: LoadBalancer
-  loadBalancerIP: 104.154.109.191
   ports:
   - port: 80
     name: http

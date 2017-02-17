@@ -18,7 +18,7 @@ spec:
         # Any image is permissable as long as:
         # 1. It serves a 404 page at /
         # 2. It serves 200 on a /healthz endpoint
-        image: gcr.io/google_containers/defaultbackend:1.0
+        image: registry.cn-hangzhou.aliyuncs.com/google-containers/defaultbackend:1.0
         livenessProbe:
           httpGet:
             path: /healthz
@@ -71,7 +71,7 @@ spec:
       hostNetwork: true
       terminationGracePeriodSeconds: 60
       containers:
-      - image: gcr.io/google_containers/nginx-ingress-controller:0.9.0-beta.1
+      - image: registry.cn-hangzhou.aliyuncs.com/google-containers/nginx-ingress-controller:0.9.0-beta.1
         name: nginx-ingress-controller
         readinessProbe:
           httpGet:
@@ -102,3 +102,5 @@ spec:
         args:
         - /nginx-ingress-controller
         - --default-backend-service=$(POD_NAMESPACE)/default-http-backend
+        - --publish-service=$(POD_NAMESPACE)/nginx-ingress-lb
+        - --ingress-class="nginx-1"
